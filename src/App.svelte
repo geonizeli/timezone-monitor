@@ -1,89 +1,76 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from './assets/vite.svg'
-  import heroImg from './assets/hero.png'
-  import Counter from './lib/Counter.svelte'
+  import { onMount } from 'svelte';
+  import TimezoneColumn from './lib/TimezoneColumn.svelte';
+  import TimezonePicker from './lib/TimezonePicker.svelte';
+  import { loadTimezones, saveTimezones } from './lib/storage.js';
+
+  let selectedZones = $state([]);
+  let showPicker = $state(false);
+  let now = $state(new Date());
+
+  onMount(() => {
+    selectedZones = loadTimezones();
+
+    // Update the clock every second
+    const interval = setInterval(() => {
+      now = new Date();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+
+  function addTimezone(tz) {
+    if (!selectedZones.includes(tz)) {
+      selectedZones = [...selectedZones, tz];
+      saveTimezones(selectedZones);
+    }
+    showPicker = false;
+  }
+
+  function removeTimezone(tz) {
+    selectedZones = selectedZones.filter((z) => z !== tz);
+    saveTimezones(selectedZones);
+  }
 </script>
 
-<section id="center">
-  <div class="hero">
-    <img src={heroImg} class="base" width="170" height="179" alt="" />
-    <img src={svelteLogo} class="framework" alt="Svelte logo" />
-    <img src={viteLogo} class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/App.svelte</code> and save to test <code>HMR</code></p>
-  </div>
-  <Counter />
-</section>
+<div class="min-h-screen bg-slate-100 dark:bg-slate-950 transition-colors">
+  <!-- Header -->
+  <header class="py-6 px-4 text-center">
+    <h1 class="text-3xl font-bold text-slate-800 dark:text-slate-100 tracking-tight">
+      🌍 Timezone Monitor
+    </h1>
+    <p class="text-slate-500 dark:text-slate-400 mt-1 text-sm">
+      Track time across the world at a glance
+    </p>
+  </header>
 
-<div class="ticks"></div>
+  <!-- Timezone columns -->
+  <main class="px-4 pb-8">
+    <div class="flex flex-wrap gap-4 justify-center max-w-7xl mx-auto">
+      {#each selectedZones as tz (tz)}
+        <div class="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] min-w-[200px]">
+          <TimezoneColumn {tz} {now} onremove={() => removeTimezone(tz)} />
+        </div>
+      {/each}
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true">
-      <use href="/icons.svg#documentation-icon"></use>
-    </svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank" rel="noreferrer">
-          <img class="logo" src={viteLogo} alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://svelte.dev/" target="_blank" rel="noreferrer">
-          <img class="button-icon" src={svelteLogo} alt="" />
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true">
-      <use href="/icons.svg#social-icon"></use>
-    </svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li>
-        <a href="https://github.com/vitejs/vite" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#github-icon"></use>
-          </svg>
-          GitHub
-        </a>
-      </li>
-      <li>
-        <a href="https://chat.vite.dev/" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#discord-icon"></use>
-          </svg>
-          Discord
-        </a>
-      </li>
-      <li>
-        <a href="https://x.com/vite_js" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#x-icon"></use>
-          </svg>
-          X.com
-        </a>
-      </li>
-      <li>
-        <a href="https://bsky.app/profile/vite.dev" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#bluesky-icon"></use>
-          </svg>
-          Bluesky
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
+      <!-- Add button -->
+      <button
+        onclick={() => (showPicker = true)}
+        class="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)] min-w-[200px] min-h-[280px] rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 flex flex-col items-center justify-center gap-2 text-slate-400 dark:text-slate-600 hover:border-sky-400 hover:text-sky-500 dark:hover:border-sky-500 dark:hover:text-sky-400 transition-colors cursor-pointer bg-transparent"
+        aria-label="Add a new timezone"
+      >
+        <span class="text-4xl">+</span>
+        <span class="text-sm font-medium">Add Timezone</span>
+      </button>
+    </div>
+  </main>
 
-<div class="ticks"></div>
-<section id="spacer"></section>
+  <!-- Timezone picker modal -->
+  {#if showPicker}
+    <TimezonePicker
+      selected={selectedZones}
+      onadd={addTimezone}
+      onclose={() => (showPicker = false)}
+    />
+  {/if}
+</div>
