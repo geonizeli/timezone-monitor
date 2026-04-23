@@ -1,43 +1,79 @@
-# Svelte + Vite
+# 🌍 Timezone Monitor
 
-This template should help get you started developing with Svelte in Vite.
+![Timezone Monitor Screenshot](screenshot.png)
 
-## Recommended IDE Setup
+A beautiful, real-time timezone tracker built with Svelte 5 and Tailwind CSS. Keep an eye on the time across multiple locations around the world with dynamic sky themes that reflect the actual time of day.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## Features
 
-## Need an official Svelte framework?
+- **Real-time Updates** — Time updates every second across all displayed timezones
+- **Dynamic Sky Themes** — Each timezone card displays a gradient background and icon that changes based on the local time (dawn, morning, afternoon, dusk, night)
+- **Searchable Timezone Picker** — Quickly find and add any IANA timezone from a searchable, grouped list
+- **Drag & Drop Reordering** — Rearrange your timezone cards in edit mode
+- **Persistent Storage** — Your selected timezones are saved to localStorage
+- **Responsive Design** — Works great on desktop and mobile devices
+- **Dark Mode Support** — Automatically adapts to your system's color scheme
+- **Collapsible Header** — Hide the header for a cleaner, more compact view
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+## Getting Started
 
-## Technical considerations
+### Prerequisites
 
-**Why use this over SvelteKit?**
+- Node.js 18+
+- npm or pnpm
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+### Installation
 
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+```bash
+# Clone the repository
+git clone <repository-url>
+cd timezone-monitor
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+# Install dependencies
+npm install
 
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+# Start the development server
+npm run dev
 ```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Build for Production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Usage
+
+1. **Add Timezones** — Click the "+ Add" button to open the timezone picker and search for a location
+2. **Remove Timezones** — Click "Edit" to enter edit mode, then click the ✕ button on any card
+3. **Reorder Timezones** — In edit mode, drag and drop cards to rearrange them
+4. **Hide Header** — Click the ▲ button to collapse the header for a minimal view
+
+## Tech Stack
+
+- [Svelte 5](https://svelte.dev/) — Frontend framework with runes
+- [Vite](https://vitejs.dev/) — Build tool and dev server
+- [Tailwind CSS 4](https://tailwindcss.com/) — Utility-first CSS framework
+
+## Project Structure
+
+```
+src/
+├── App.svelte              # Main application component
+├── main.js                 # Application entry point
+├── app.css                 # Global styles
+└── lib/
+    ├── TimezoneColumn.svelte   # Individual timezone card
+    ├── TimezonePicker.svelte   # Modal for adding timezones
+    ├── HourTimeline.svelte     # 24-hour visual timeline
+    ├── timezones.js            # Timezone utilities
+    ├── sky.js                  # Sky theme calculations
+    └── storage.js              # localStorage helpers
+```
+
+## License
+
+MIT
