@@ -67,10 +67,10 @@
 <div class="min-h-screen bg-slate-100 dark:bg-slate-950 transition-colors flex flex-col">
   <!-- Header -->
   <header class="px-4 md:px-6 text-center relative transition-all duration-300 overflow-hidden {headerHidden ? 'py-0 max-h-0' : 'py-4 md:py-8 max-h-60'}">
-    <h1 class="text-2xl md:text-4xl font-bold text-slate-800 dark:text-slate-100 tracking-tight text-left lg:text-center">
+    <h1 class="text-2xl md:text-4xl font-bold text-slate-800 dark:text-slate-100 tracking-tight text-center md:text-left lg:text-center">
       🌍 Timezone Monitor
     </h1>
-    <p class="text-slate-500 dark:text-slate-400 mt-1 md:mt-2 text-sm md:text-base text-left lg:text-center">
+    <p class="text-slate-500 dark:text-slate-400 mt-1 md:mt-2 text-sm md:text-base text-center md:text-left lg:text-center">
       Track time across the world at a glance
     </p>
     
