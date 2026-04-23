@@ -14,7 +14,7 @@ export function loadTimezones() {
   } catch {
     // ignore parse errors
   }
-  return ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
+  return ['America/Sao_Paulo', 'Europe/Lisbon', 'Asia/Hong_Kong', 'Asia/Kuala_Lumpur'];
 }
 
 /**
