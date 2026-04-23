@@ -1,7 +1,6 @@
 <script>
   import { getTimeInZone, getDateInZone, getHourInZone, getUtcOffset, displayName } from './timezones.js';
   import { getSkyTheme } from './sky.js';
-  import HourTimeline from './HourTimeline.svelte';
 
   let { tz, now, onremove } = $props();
 
@@ -61,7 +60,4 @@
       {tz}
     </div>
   </div>
-
-  <!-- 24h timeline -->
-  <HourTimeline currentHour={hour} />
 </div>
