@@ -4,11 +4,25 @@
   let { selected = [], onadd, onclose } = $props();
 
   let search = $state('');
+  
+  /**
+   * Normalize a string for search: remove accents, convert to lowercase,
+   * replace underscores with spaces.
+   */
+  function normalizeForSearch(str) {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove diacritics/accents
+      .toLowerCase()
+      .replace(/_/g, ' ');
+  }
+  
   let grouped = $derived.by(() => {
+    const normalizedSearch = normalizeForSearch(search);
     const filtered = TIMEZONE_LIST.filter(
       (tz) =>
         !selected.includes(tz) &&
-        tz.toLowerCase().includes(search.toLowerCase())
+        normalizeForSearch(tz).includes(normalizedSearch)
     );
     return groupTimezones(filtered);
   });
