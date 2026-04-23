@@ -28,15 +28,16 @@
   role="dialog"
   aria-modal="true"
   aria-label="Select a timezone"
+  tabindex="-1"
   onkeydown={handleKeydown}
 >
-  <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col overflow-hidden">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-xl max-h-[80vh] flex flex-col overflow-hidden">
     <!-- Header -->
-    <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100">Add Timezone</h2>
+    <div class="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-700">
+      <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Add Timezone</h2>
       <button
         onclick={onclose}
-        class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors cursor-pointer"
+        class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors cursor-pointer text-lg"
         aria-label="Close timezone picker"
       >
         ✕
@@ -44,32 +45,32 @@
     </div>
 
     <!-- Search -->
-    <div class="p-4 border-b border-slate-200 dark:border-slate-700">
+    <div class="p-5 border-b border-slate-200 dark:border-slate-700">
       <input
         type="text"
         placeholder="Search timezones..."
         bind:value={search}
-        class="w-full px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+        class="w-full px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-base"
       />
     </div>
 
     <!-- Timezone list -->
-    <div class="overflow-y-auto flex-1 p-2">
+    <div class="overflow-y-auto flex-1 p-3">
       {#each Object.entries(grouped) as [region, tzList]}
-        <div class="mb-2">
-          <div class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+        <div class="mb-3">
+          <div class="px-4 py-2 text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
             {region}
           </div>
           {#each tzList as tz}
             <button
               onclick={() => handleAdd(tz)}
-              class="w-full text-left px-3 py-2 rounded-lg hover:bg-sky-50 dark:hover:bg-sky-900/30 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer flex items-center justify-between group"
+              class="w-full text-left px-4 py-3 rounded-lg hover:bg-sky-50 dark:hover:bg-sky-900/30 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer flex items-center justify-between group"
             >
               <span>
-                <span class="font-medium">{displayName(tz)}</span>
-                <span class="text-xs text-slate-400 dark:text-slate-500 ml-2">{tz}</span>
+                <span class="font-medium text-base">{displayName(tz)}</span>
+                <span class="text-sm text-slate-400 dark:text-slate-500 ml-2">{tz}</span>
               </span>
-              <span class="text-sky-500 opacity-0 group-hover:opacity-100 transition-opacity text-sm">
+              <span class="text-sky-500 opacity-0 group-hover:opacity-100 transition-opacity text-base">
                 + Add
               </span>
             </button>
@@ -78,7 +79,7 @@
       {/each}
 
       {#if Object.keys(grouped).length === 0}
-        <div class="text-center py-8 text-slate-400">
+        <div class="text-center py-10 text-slate-400 text-base">
           No timezones found matching "{search}"
         </div>
       {/if}

@@ -13,7 +13,7 @@
   let name = $derived(displayName(tz));
 </script>
 
-<div class="relative flex flex-col items-center justify-between rounded-2xl p-6 min-w-[200px] flex-1 overflow-hidden shadow-lg bg-gradient-to-b {sky.gradient} transition-all duration-1000">
+<div class="relative flex flex-col items-center justify-between rounded-2xl p-8 min-w-[250px] flex-1 overflow-hidden shadow-lg bg-gradient-to-b {sky.gradient} transition-all duration-1000">
   <!-- Stars overlay for night -->
   {#if sky.label === 'Night'}
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
@@ -28,36 +28,36 @@
   <!-- Remove button -->
   <button
     onclick={onremove}
-    class="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white transition-colors cursor-pointer text-sm"
+    class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/40 text-white/70 hover:text-white transition-colors cursor-pointer text-base"
     aria-label="Remove {name} timezone"
   >
     ✕
   </button>
 
   <!-- Sky icon -->
-  <div class="text-5xl mb-2 drop-shadow-lg" role="img" aria-label={sky.label}>
+  <div class="text-6xl mb-3 drop-shadow-lg" role="img" aria-label={sky.label}>
     {sky.icon}
   </div>
 
   <!-- Time -->
   <div class="{sky.textColor} text-center">
-    <div class="text-4xl font-mono font-bold tracking-tight drop-shadow-md">
+    <div class="text-5xl font-mono font-bold tracking-tight drop-shadow-md">
       {time}
     </div>
-    <div class="text-sm mt-1 opacity-80">
+    <div class="text-base mt-2 opacity-80">
       {date}
     </div>
   </div>
 
   <!-- Location info -->
-  <div class="{sky.textColor} text-center mt-4">
-    <div class="text-lg font-semibold drop-shadow-sm">
+  <div class="{sky.textColor} text-center mt-5">
+    <div class="text-xl font-semibold drop-shadow-sm">
       {name}
     </div>
-    <div class="text-xs opacity-70 mt-0.5">
+    <div class="text-sm opacity-70 mt-1">
       {offset}
     </div>
-    <div class="text-xs opacity-50 mt-0.5 font-mono">
+    <div class="text-sm opacity-50 mt-1 font-mono">
       {tz}
     </div>
   </div>
